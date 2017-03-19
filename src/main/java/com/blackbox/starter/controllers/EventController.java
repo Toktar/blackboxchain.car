@@ -3,13 +3,17 @@ package com.blackbox.starter.controllers;
 import com.blackbox.starter.CryptoUtil;
 import com.blackbox.starter.EventListener;
 import com.blackbox.starter.ethereum.EthereumBean;
+import com.blackbox.starter.events.CarEvent;
 import com.blackbox.starter.events.CarStartEvent;
 import com.blackbox.starter.events.ICarEvent;
+import com.blackbox.starter.models.EventBlock;
 import com.blackbox.starter.models.EventMessage;
 import com.blackbox.starter.models.EventType;
 import com.blackbox.starter.util.InterfaceAdapter;
+import com.blackbox.starter.util.Miner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.xml.internal.ws.addressing.v200408.MemberSubmissionWsaServerTube;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,42 +30,20 @@ public class EventController {
     private String tripId = null;
     private String lastEventHash = null;
     private String publicKey;
+    private Miner miner;
 
-    @Autowired
-    EthereumBean ethereumBean;
+
 
     @Autowired
     public EventListener start() {
+        miner = new Miner();
+        miner.start();
         CryptoUtil.generateKey();
         publicKey = CryptoUtil.PUBLIC_KEY_FILE;
         return new EventListener();
     }
 
-    public static void main(String[] args) {
-        CarStartEvent carStartEvent = new CarStartEvent();
-        carStartEvent.setDriverId("123");
-        carStartEvent.setTripId("321");
 
-        EventMessage eventMessage = new EventMessage();
-        eventMessage.setCarEvent(carStartEvent);
-        eventMessage.setEventType(EventType.start);
-        eventMessage.setLastHash("hashhhhh");
-
-
-        try (FileWriter writer = new FileWriter("black_box_elem.log", false)) {
-
-            writer.write();
-            writer.append('\n');
-            writer.flush();
-        } catch (IOException ex) {
-
-            System.out.println(ex.getMessage());
-        }
-
-
-
-
-    }
 
     public void setEvent(File eventInFile) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
 
@@ -102,6 +84,9 @@ public class EventController {
         Block block2 = new Block(block1.getHash(), );*/
 
         if (eventMessage != null) {
+            CarEvent carEvent = messageConverter(eventMessage);
+            miner.addEvent(carEvent);
+            /*
             eventMessage.setLastHash(lastEventHash);
             String jsonEvent = gson.toJson(eventMessage);
             jsonEvent = CryptoUtil.encrypt(jsonEvent, CryptoUtil.restorePublic()).toString();
@@ -116,10 +101,14 @@ public class EventController {
 
                 System.out.println(ex.getMessage());
             }
-
+*/
         }
     }
 
+
+    private CarEvent messageConverter(EventMessage eventMessage) {
+        return null;
+    }
 
     private void saveRepair(EventMessage newEvent) {
 

@@ -1,16 +1,26 @@
+/*
 package com.blackbox.starter.controllers;
 
-import org.ethereum.core.Block;
+import com.blackbox.starter.events.CarEvent;
+import com.blackbox.starter.models.EventBlock;
+import com.blackbox.starter.util.Miner;
+import org.ethereum.core.*;
 import org.ethereum.core.BlockHeader;
 import org.ethereum.core.Transaction;
 import org.ethereum.facade.Ethereum;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+*/
 /**
  * Created by Kida on 12.03.2017.
- */
+ *//*
+
+@Component
 public class BlockController {
+
+    List<EventBlock> eventList;
 
     public Block generateBlock2(byte[] parentHash, byte[] unclesHash, byte[] coinbase, byte[] logsBloom,
                                 byte[] difficulty, long number, byte[] gasLimit,
@@ -25,10 +35,12 @@ public class BlockController {
     }
 
 
-    public Block generateBlock2() {
+    public EventBlock generatePendingBlock(CarEvent eventMessage) {
+        EventBlock eventBlock = new EventBlock();
+        eventBlock.setEvent(eventMessage);
+        new Miner(eventBlock, this).start();
 
 
-       // Block block = new Block();
         return null;
     }
     public Block generateStartBlock(byte[] data) {
@@ -42,5 +54,16 @@ public class BlockController {
     }
 
 
+    public void addBlock(CarEvent eventMessage) {
+        EventBlock eventBlock = generatePendingBlock(eventMessage);
 
+
+
+    }
+
+    public synchronized void setBlockWithNonce(EventBlock eventBlock) {
+        eventList.add(eventBlock);
+        //TODO: save to file
+    }
 }
+*/

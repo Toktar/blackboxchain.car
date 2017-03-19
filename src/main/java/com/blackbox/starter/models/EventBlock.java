@@ -2,17 +2,29 @@ package com.blackbox.starter.models;
 
 import com.blackbox.starter.events.CarEvent;
 
+import java.util.List;
+
 /**
  * Created by toktar.
  */
 public class EventBlock {
 
     private String parentHash;
-    private String listHash;
-    private CarEvent event;
+    private List<CarEvent> event;
+    private String eventHash;
     private long timestamp;
     private String signature;
-    private long sold=0;
+    private long nonce =0;
+
+    public String getEventHash() {
+        return eventHash;
+    }
+
+    public void setEventHash(String eventHash) {
+        this.eventHash = eventHash;
+    }
+
+
 
     public String getSignature() {
         return signature;
@@ -40,27 +52,24 @@ public class EventBlock {
         this.parentHash = parentHash;
     }
 
-    public String getListHash() {
-        return listHash;
-    }
-
-    public void setListHash(String listHash) {
-        this.listHash = listHash;
-    }
-
-    public CarEvent getEvent() {
+    public List<CarEvent> getEvent() {
         return event;
     }
 
-    public void setEvent(CarEvent event) {
+    public void setEvent(List<CarEvent> event) {
         this.event = event;
     }
 
-    public long getSold() {
-        return sold;
+    public long getNonce() {
+        return nonce;
     }
 
-    public void setSold(long sold) {
-        this.sold = sold;
+    public void setNonce(long nonce) {
+        this.nonce = nonce;
+    }
+
+    public byte[] getHeader() {
+        //TODO
+        return new byte[0];
     }
 }
