@@ -1,15 +1,24 @@
 package com.blackbox.starter;
 
-import com.blackbox.starter.ethereum.EthereumBean;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
 
-import java.util.concurrent.Executors;
+import org.springframework.stereotype.Component;
 
-//@Configuration
+@Component
 public class Config {
+    private String eventFolder = "new_event\\";
 
-  /*  @Bean
+    public String getEventFolder() {
+        return eventFolder;
+    }
+
+    public void setEventFolder(String eventFolder) {
+        this.eventFolder = eventFolder;
+    }
+
+
+/*  @Bean
     EthereumBean ethereumBean() throws Exception {
         EthereumBean ethereumBean = new EthereumBean();
         Executors.newSingleThreadExecutor().

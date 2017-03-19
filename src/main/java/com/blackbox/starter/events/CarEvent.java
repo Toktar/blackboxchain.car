@@ -3,7 +3,7 @@ package com.blackbox.starter.events;
 /**
  * Created by toktar.
  */
-public abstract class CarEvent {
+public abstract class CarEvent extends ICarEvent {
 
     private long timestamp;
     private String eventId;

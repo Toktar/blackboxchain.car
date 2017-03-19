@@ -2,6 +2,8 @@ package com.blackbox.starter.models;
 
 
 import com.blackbox.starter.events.CarEvent;
+import com.blackbox.starter.events.ICarEvent;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by toktar.
@@ -12,6 +14,22 @@ public class EventMessage {
     private EventType eventType;
     private String lastHash;
 
+    @JsonProperty(value = "event")
+    private ICarEvent carEvent;
+    private Object eventObject;
+
+    public Object getEventObject() {
+        return eventObject;
+    }
+
+    public void setEventObject(Object eventObject) {
+        this.eventObject = eventObject;
+    }
+
+    public void setCarEvent(ICarEvent carEvent) {
+        this.carEvent = carEvent;
+    }
+
     public String getLastHash() {
         return lastHash;
     }
@@ -20,7 +38,7 @@ public class EventMessage {
         this.lastHash = lastHash;
     }
 
-    public CarEvent getCarEvent() {
+    public ICarEvent getCarEvent() {
         return carEvent;
     }
 
@@ -36,5 +54,4 @@ public class EventMessage {
         this.eventType = eventType;
     }
 
-    private CarEvent carEvent;
 }

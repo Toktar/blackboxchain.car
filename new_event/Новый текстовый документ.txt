@@ -1,0 +1,4 @@
+{"eventType":"start","lastHash":"qqqq","event":{
+"CLASSNAME":"CarStartEvent","DATA":{"driverId":"d12",
+        "tripId" : "trip321"
+    }}}

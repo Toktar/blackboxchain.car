@@ -1,24 +1,11 @@
 package com.blackbox.starter;
 
-import com.blackbox.starter.ethereum.EthereumBean;
-import com.blackbox.starter.events.CarStartEvent;
-import com.blackbox.starter.models.EventMessage;
-import com.google.gson.Gson;
-import org.ethereum.core.Block;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
-
 /**
  * Created by toktar.
  */
 public class EventListener {
 
-    private String tripId = null;
+  /*  private String tripId = null;
     private String lastEventHash = null;
     private String publicKey;
 
@@ -42,8 +29,8 @@ public class EventListener {
             case repair: saveRepair(eventMessage); break;
         }
 
-        Block block1 = new Block("start".getBytes());
-        Block block2 = new Block(block1.getHash(), );
+      *//*  Block block1 = new Block("start".getBytes());
+        Block block2 = new Block(block1.getHash(), );*//*
 
         if(eventMessage!=null) {
             eventMessage.setLastHash(lastEventHash);
@@ -89,12 +76,12 @@ public class EventListener {
     private void saveStart(EventMessage newEvent) {
         CarStartEvent carEvent = (CarStartEvent)newEvent.getCarEvent();
         tripId = carEvent.getTripId();
-        Block.Builder blockBuilder = new Block.Builder();
+       // Block.Builder blockBuilder = new Block.Builder();
         // {"id":100,"name":"name"}
         //Entity read = gson.fromJson(json, Entity.class);
 
 
       //  blockBuilder.
        // currBlock.set
-    }
+    }*/
 }
