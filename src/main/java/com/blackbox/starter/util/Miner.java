@@ -1,12 +1,11 @@
 package com.blackbox.starter.util;
 
-import com.blackbox.starter.controllers.BlockController;
 import com.blackbox.starter.events.CarEvent;
 import com.blackbox.starter.models.EventBlock;
 
 import java.io.*;
 import java.security.GeneralSecurityException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -26,8 +25,8 @@ public class Miner extends Thread {
 
     public Miner() {
        // this.blockController = blockController;
-        eventList = new LinkedList<>();
-        pendingList = new LinkedList<>();
+        eventList = new ArrayList<>();
+        pendingList = new ArrayList<>();
         target = new byte[32];
         for (int i = 0; i < 32; i++) {
             target[i] = (byte) (i < 3 ? 0 : 0xFF); //TODO param
@@ -44,6 +43,14 @@ public class Miner extends Thread {
     public void addEvent(CarEvent newEvent) throws IOException {
         pendingList.add(newEvent);
         savePendingEventsToFile();
+    }
+    
+    public boolean isChainCorect() {
+        for (int i = 1; i < eventList.size(); i++) {
+            if(eventList.get(i-1).getEventHash().equals(eventList.get(i).getParentHash()) || EncryptionUtil.encrypt())
+        }
+        
+        return true;
     }
 
     /**
@@ -133,7 +140,7 @@ public class Miner extends Thread {
     }
 
     private void saveBlockListToFile(int startPosition, int endPosition) throws IOException {
-        List<EventBlock> curList = new LinkedList<>();
+        List<EventBlock> curList = new ArrayList<>();
         for (int i = startPosition; i <= endPosition; i++) {
             curList.add(eventList.get(i));
         }
@@ -159,7 +166,7 @@ public class Miner extends Thread {
         FileInputStream fis = new FileInputStream("history_storage\\history_" + startPosition
                 + "_" + endPosition + ".out");
         ObjectInputStream oin = new ObjectInputStream(fis);
-        List<EventBlock> curList = (LinkedList<EventBlock>) oin.readObject();
+        List<EventBlock> curList = (ArrayList<EventBlock>) oin.readObject();
 
     }
 
