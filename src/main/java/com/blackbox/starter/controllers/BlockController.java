@@ -3,7 +3,7 @@ package com.blackbox.starter.controllers;
 
 import com.blackbox.starter.events.CarEvent;
 import com.blackbox.starter.models.EventBlock;
-import com.blackbox.starter.util.Miner;
+import com.blackbox.starter.util.blockchain.Miner;
 import org.ethereum.core.*;
 import org.ethereum.core.BlockHeader;
 import org.ethereum.core.Transaction;

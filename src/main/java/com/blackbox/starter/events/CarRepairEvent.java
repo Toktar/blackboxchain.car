@@ -1,9 +1,11 @@
 package com.blackbox.starter.events;
 
+import java.io.Serializable;
+
 /**
  * Created by toktar.
  */
-public class CarRepairEvent extends CarEvent {
+public class CarRepairEvent extends CarEvent implements Serializable {
 
     private String description;
     private String spareId;

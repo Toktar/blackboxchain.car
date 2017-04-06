@@ -2,25 +2,20 @@ package com.blackbox.starter.controllers;
 
 import com.blackbox.starter.CryptoUtil;
 import com.blackbox.starter.EventListener;
-import com.blackbox.starter.ethereum.EthereumBean;
 import com.blackbox.starter.events.CarEvent;
 import com.blackbox.starter.events.CarStartEvent;
 import com.blackbox.starter.events.ICarEvent;
-import com.blackbox.starter.models.EventBlock;
 import com.blackbox.starter.models.EventMessage;
-import com.blackbox.starter.models.EventType;
 import com.blackbox.starter.util.InterfaceAdapter;
-import com.blackbox.starter.util.Miner;
+import com.blackbox.starter.util.blockchain.Miner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.xml.internal.ws.addressing.v200408.MemberSubmissionWsaServerTube;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Date;
 
 /**
  * Created by toktar.

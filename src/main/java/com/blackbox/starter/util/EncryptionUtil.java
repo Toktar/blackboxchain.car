@@ -1,5 +1,6 @@
 package com.blackbox.starter.util;
 
+import com.blackbox.starter.events.CarEvent;
 import com.blackbox.starter.models.EventBlock;
 
 import javax.crypto.Cipher;
@@ -8,6 +9,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.List;
 
 /**
  * Created by toktar.
@@ -38,7 +40,7 @@ public class EncryptionUtil {
     public static void generateKey() {
         try {
             final KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ALGORITHM);
-            keyGen.initialize(1024);
+            keyGen.initialize(4096);
             final KeyPair key = keyGen.generateKeyPair();
 
             File privateKeyFile = new File(PRIVATE_KEY_FILE);
@@ -113,10 +115,10 @@ public class EncryptionUtil {
     }
 
 
-    public static byte[] encrypt(EventBlock block, PublicKey key) throws IOException {
+    public static byte[] encrypt(List<CarEvent> block, PublicKey key) throws IOException {
         ByteArrayOutputStream blockInByteArray = new ByteArrayOutputStream();
                ObjectOutputStream oos = new ObjectOutputStream(blockInByteArray);
-        oos.writeObject(block.getEvent());
+        oos.writeObject(block);
 
         byte[] cipherText = null;
         try {
@@ -142,7 +144,7 @@ public class EncryptionUtil {
      * @return plain text
      * @throws java.lang.Exception
      */
-    public static String decrypt(byte[] text, PrivateKey key) {
+    public static byte[] decrypt(byte[] text, PrivateKey key) {
         byte[] dectyptedText = null;
         try {
             // get an RSA cipher object and print the provider
@@ -156,7 +158,7 @@ public class EncryptionUtil {
             ex.printStackTrace();
         }
 
-        return new String(dectyptedText);
+        return dectyptedText;
     }
 
     /**
@@ -184,7 +186,7 @@ public class EncryptionUtil {
             // Decrypt the cipher text using the private key.
             inputStream = new ObjectInputStream(new FileInputStream(PRIVATE_KEY_FILE));
             final PrivateKey privateKey = (PrivateKey) inputStream.readObject();
-            final String plainText = decrypt(cipherText, privateKey);
+            final byte[] plainText = decrypt(cipherText, privateKey);
 
             // Printing the Original, Encrypted and Decrypted Text
             System.out.println("Original: " + originalText);

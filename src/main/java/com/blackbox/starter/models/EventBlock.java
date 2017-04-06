@@ -2,35 +2,41 @@ package com.blackbox.starter.models;
 
 import com.blackbox.starter.events.CarEvent;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.List;
+
+import static org.spongycastle.crypto.tls.CipherType.block;
 
 /**
  * Created by toktar.
  */
-public class EventBlock {
+public class EventBlock implements Serializable {
 
-    private String parentHash;
+    private byte[] parentHash;
     private List<CarEvent> event;
-    private String eventHash;
+    private byte[] eventHash;
     private long timestamp;
-    private String signature;
+    private byte[] signature;
     private long nonce =0;
 
-    public String getEventHash() {
+    public byte[] getEventHash() {
         return eventHash;
     }
 
-    public void setEventHash(String eventHash) {
+    public void setEventHash(byte[] eventHash) {
         this.eventHash = eventHash;
     }
 
 
 
-    public String getSignature() {
+    public byte[] getSignature() {
         return signature;
     }
 
-    public void setSignature(String signature) {
+    public void setSignature(byte[] signature) {
         this.signature = signature;
     }
 
@@ -44,11 +50,11 @@ public class EventBlock {
 
 
 
-    public String getParentHash() {
+    public byte[] getParentHash() {
         return parentHash;
     }
 
-    public void setParentHash(String parentHash) {
+    public void setParentHash(byte[] parentHash) {
         this.parentHash = parentHash;
     }
 
@@ -68,8 +74,10 @@ public class EventBlock {
         this.nonce = nonce;
     }
 
-    public byte[] getHeader() {
-        //TODO
-        return new byte[0];
+    public byte[] getHeader() throws IOException {
+        ByteArrayOutputStream blockInByteArray = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(blockInByteArray);
+        oos.writeObject(event);
+        return blockInByteArray.toByteArray();
     }
 }

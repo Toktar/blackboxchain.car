@@ -1,11 +1,12 @@
 package com.blackbox.starter.events;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by toktar.
  */
-public class CarStopEvent extends  CarEvent {
+public class CarStopEvent extends  CarEvent implements Serializable {
 
     private List<String> breakageCodeList;
     private String tripId;

@@ -23,7 +23,7 @@ public class Hasher {
     	return hash(header, header[76] | header[77] << 8 | header[78] << 16 | header[79] << 24);
     }
     
-    public byte[] hash(byte[] header, int nonce) throws GeneralSecurityException {
+    public byte[] hash(byte[] header, long nonce) throws GeneralSecurityException {
         int i, j, k;
 
         arraycopy(header, 0, B, 0, 76);
