@@ -10,6 +10,14 @@ public class CarStartEvent extends CarEvent implements Serializable {
     private String driverId;
     private String tripId;
 
+    @Override
+    public String toString() {
+        return "CarStartEvent{" + super.toString() +
+                " driverId='" + driverId + '\'' +
+                ", tripId='" + tripId + '\'' +
+                '}';
+    }
+
     public String getDriverId() {
         return driverId;
     }

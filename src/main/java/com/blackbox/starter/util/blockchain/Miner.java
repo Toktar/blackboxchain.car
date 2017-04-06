@@ -118,7 +118,7 @@ public class Miner extends Thread {
             byte[] header = eventBlock.getHeader();
 
             while (nonce < Integer.MAX_VALUE) {
-                if (curPendingEvent != pendingList.size()) return;
+                if (curPendingEvent != pendingList.size() && pendingList.size()<3) return;
                 if (tryNonce(nonce, hasher, header)) break;
                 nonce++;
             }

@@ -1,7 +1,5 @@
 package com.blackbox.starter.controllers;
 
-import com.blackbox.starter.CryptoUtil;
-import com.blackbox.starter.EventListener;
 import com.blackbox.starter.events.CarEvent;
 import com.blackbox.starter.events.CarStartEvent;
 import com.blackbox.starter.events.ICarEvent;
@@ -13,7 +11,9 @@ import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
@@ -30,12 +30,12 @@ public class EventController {
 
 
     @Autowired
-    public EventListener start() {
+    public EventController start() {
         miner = new Miner();
         miner.start();
-        CryptoUtil.generateKey();
-        publicKey = CryptoUtil.PUBLIC_KEY_FILE;
-        return new EventListener();
+       // CryptoUtil.generateKey();
+       // publicKey = CryptoUtil.PUBLIC_KEY_FILE;
+        return new EventController();
     }
 
 

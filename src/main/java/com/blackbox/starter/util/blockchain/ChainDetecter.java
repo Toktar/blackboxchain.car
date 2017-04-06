@@ -8,11 +8,12 @@ import com.blackbox.starter.util.Hasher;
 import java.io.*;
 import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static com.blackbox.starter.util.EncryptionUtil.PRIVATE_KEY_FILE;
-import static com.blackbox.starter.util.EncryptionUtil.PUBLIC_KEY_FILE;
 
 /**
  * Created by Kida on 28.03.2017.
@@ -21,10 +22,10 @@ public class ChainDetecter {
 
 
     public boolean isChainCorrect(List<EventBlock> eventList) throws GeneralSecurityException, IOException, ClassNotFoundException {
-        if(!isBlockCorrect(eventList.get(0))) return false;
+        if (!isBlockCorrect(eventList.get(0))) return false;
         for (int i = 1; i < eventList.size(); i++) {
-            if(!Arrays.equals(eventList.get(i - 1).getEventHash(), eventList.get(i).getParentHash())
-                    || !isBlockCorrect(eventList.get(i))){
+            if (!Arrays.equals(eventList.get(i - 1).getEventHash(), eventList.get(i).getParentHash())
+                    || !isBlockCorrect(eventList.get(i))) {
                 return false;
             }
         }
@@ -36,9 +37,9 @@ public class ChainDetecter {
         ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(PRIVATE_KEY_FILE));
         final PrivateKey privateKey = (PrivateKey) inputStream.readObject();
         int hashLength = block.getEventHash().length;
-        boolean res =  Arrays.equals(block.getEventHash(), hasher.hash(block.getHeader(), block.getNonce()))
-                && block.getEventHash()[hashLength-1]==0
-                && block.getEventHash()[hashLength-2]==0;
+        boolean res = Arrays.equals(block.getEventHash(), hasher.hash(block.getHeader(), block.getNonce()))
+                && block.getEventHash()[hashLength - 1] == 0
+                && block.getEventHash()[hashLength - 2] == 0;
 
         ByteArrayOutputStream blockInByteArray = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(blockInByteArray);
@@ -56,13 +57,13 @@ public class ChainDetecter {
 
     }
 
-    private List<CarEvent> getEventList(List<EventBlock> blockList) {
-        List<CarEvent> eventList = new TreeSet<>();
+    public List<CarEvent> getEventList(List<EventBlock> blockList) {
+        List<CarEvent> eventList = new ArrayList<>();
         for (EventBlock block : blockList) {
-            eventList.add(event);
-            }
+            eventList.addAll(block.getEvent());
         }
-        return eventList.to
+        Collections.sort(eventList);
+        return eventList;
     }
 
 }

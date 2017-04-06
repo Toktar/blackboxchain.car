@@ -1,7 +1,6 @@
 package com.blackbox.starter.util;
 
 import com.blackbox.starter.events.CarEvent;
-import com.blackbox.starter.models.EventBlock;
 
 import javax.crypto.Cipher;
 import java.io.*;
@@ -40,7 +39,7 @@ public class EncryptionUtil {
     public static void generateKey() {
         try {
             final KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ALGORITHM);
-            keyGen.initialize(4096);
+            keyGen.initialize(8192);
             final KeyPair key = keyGen.generateKeyPair();
 
             File privateKeyFile = new File(PRIVATE_KEY_FILE);
