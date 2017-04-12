@@ -9,11 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 
-/**
- * @author ashraf
- *
- */
-@Component
+
 public class FileMonitorDemo {
 
 	// Get the user home directory to be monitored
@@ -24,9 +20,10 @@ public class FileMonitorDemo {
 
 
 
-    @Autowired
-	public void main(EventController eventController) throws Exception {
+
+	public FileMonitorDemo(EventController eventController) throws Exception {
         System.out.println(FOLDER);
+		System.out.println("FileMonitorDemo starting");
         // Change this to match the environment you want to watch.
 		final File directory = new File(FOLDER);
 

@@ -20,7 +20,7 @@ import java.security.spec.InvalidKeySpecException;
 /**
  * Created by toktar.
  */
-@Component
+
 public class EventController {
     private String tripId = null;
     private String lastEventHash = null;
@@ -29,13 +29,13 @@ public class EventController {
 
 
 
-    @Autowired
-    public EventController start() {
+
+    public EventController() {
+        System.out.println("Event controller starting");
         miner = new Miner();
         miner.start();
-       // CryptoUtil.generateKey();
-       // publicKey = CryptoUtil.PUBLIC_KEY_FILE;
-        return new EventController();
+        System.out.println("Event controller started");
+
     }
 
 
@@ -44,93 +44,40 @@ public class EventController {
 
 
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(ICarEvent.class, new InterfaceAdapter());
+        builder.registerTypeAdapter(EventMessage.class, new InterfaceAdapter());
         Gson gson = builder.create();
 
-        EventMessage eventMessage = gson.fromJson(new FileReader(eventInFile), EventMessage.class);
-/*
-        switch (eventMessage.getEventType()) {
-            case start: saveStart(eventMessage); break;
-            case stop: saveStop(eventMessage); break;
-            case accident: saveAccident(eventMessage); break;
-            case breaking: saveBreaking(eventMessage); break;
-            case repair: saveRepair(eventMessage); break;
-        }*/
-        /*switch (eventMessage.getEventType()) {
-            case start:
-                eventMessage.setCarEvent(gson.fromJson(eventMessage.getEventInStr(), CarStartEvent.class));
-                break;
-            case stop:
-                eventMessage.setCarEvent(gson.fromJson(eventMessage.getEventInStr(), CarStopEvent.class));
-                break;
-            case accident:
-                eventMessage.setCarEvent(gson.fromJson(eventMessage.getEventInStr(), CarAccidentEvent.class));
-                break;
-            case breaking:
-                eventMessage.setCarEvent(gson.fromJson(eventMessage.getEventInStr(), CarBreakingEvent.class));
-                break;
-            case repair:
-                eventMessage.setCarEvent(gson.fromJson(eventMessage.getEventInStr(), CarRepairEvent.class));
-                break;
-        }*/
+       // EventMessage eventMessage = gson.fromJson(new FileReader(eventInFile), EventMessage.class);
+        EventMessage eventMessage = new Gson().fromJson(new FileReader(eventInFile), EventMessage.class);
 
 
-      /*  Block block1 = new Block("start".getBytes());
-        Block block2 = new Block(block1.getHash(), );*/
 
         if (eventMessage != null) {
             CarEvent carEvent = messageConverter(eventMessage);
             miner.addEvent(carEvent);
-            /*
-            eventMessage.setLastHash(lastEventHash);
-            String jsonEvent = gson.toJson(eventMessage);
-            jsonEvent = CryptoUtil.encrypt(jsonEvent, CryptoUtil.restorePublic()).toString();
-            lastEventHash = jsonEvent;
 
-
-            try (FileWriter writer = new FileWriter("black_box_history.log", false)) {
-                writer.write(jsonEvent);
-                writer.append('\n');
-                writer.flush();
-            } catch (IOException ex) {
-
-                System.out.println(ex.getMessage());
-            }
-*/
         }
     }
 
 
     private CarEvent messageConverter(EventMessage eventMessage) {
-        return null;
+        CarEvent result = null;
+        result = (eventMessage.getStart()!=null)?eventMessage.getStart():result;
+        result = (eventMessage.getStop()!=null)?eventMessage.getStop():result;
+        result = (eventMessage.getAccident()!=null)?eventMessage.getAccident():result;
+        result = (eventMessage.getBreaking()!=null)?eventMessage.getBreaking():result;
+        result = (eventMessage.getRepair()!=null)?eventMessage.getRepair():result;
+        return result;
     }
 
-    private void saveRepair(EventMessage newEvent) {
-
-
-    }
-
-    private void saveBreaking(EventMessage newEvent) {
-
-    }
-
-    private void saveAccident(EventMessage newEvent) {
+    public static void main(String[] args) {
+        EventMessage eventMessage = new EventMessage();
+        CarStartEvent start = new CarStartEvent();
+        start.setTripId("111111");
+        start.setTimestamp(22445678);
+        start.setDriverId("eeeeeee");
+        eventMessage.setStart(start);
 
     }
 
-    private void saveStop(EventMessage newEvent) {
-        if (tripId == null) newEvent = null;
-    }
-
-    private void saveStart(EventMessage newEvent) {
-        CarStartEvent carEvent = (CarStartEvent) newEvent.getCarEvent();
-        tripId = carEvent.getTripId();
-        // Block.Builder blockBuilder = new Block.Builder();
-        // {"id":100,"name":"name"}
-        //Entity read = gson.fromJson(json, Entity.class);
-
-
-        //  blockBuilder.
-        // currBlock.set
-    }
 }

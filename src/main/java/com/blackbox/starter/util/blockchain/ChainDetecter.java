@@ -8,10 +8,7 @@ import com.blackbox.starter.util.Hasher;
 import java.io.*;
 import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.blackbox.starter.util.EncryptionUtil.PRIVATE_KEY_FILE;
 
@@ -64,6 +61,16 @@ public class ChainDetecter {
         }
         Collections.sort(eventList);
         return eventList;
+    }
+
+    public List<CarEvent> getEventWithType(List<CarEvent> eventList, Set<Class> classList) {
+        List<CarEvent> result = new ArrayList<>();
+        for (CarEvent event : eventList) {
+            if (classList.contains(event.getClass())) {
+                result.add(event);
+            }
+        }
+        return result;
     }
 
 }

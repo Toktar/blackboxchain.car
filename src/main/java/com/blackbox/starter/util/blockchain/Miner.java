@@ -28,6 +28,7 @@ public class Miner extends Thread {
     // BlockController blockController;
 
     public Miner() {
+        System.out.println("Miner controller starting");
         // this.blockController = blockController;
         EncryptionUtil.generateKey();
         blockList = new ArrayList<>();
@@ -36,6 +37,8 @@ public class Miner extends Thread {
         for (int i = 0; i < 32; i++) {
             target[i] = (byte) (i >= 30 ? 0 : 0xFF); //TODO param
         }
+        System.out.println("Miner controller started");
+
     }
 
 

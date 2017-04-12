@@ -1,13 +1,8 @@
 package com.blackbox.starter;
 
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Config {
-    private String eventFolder = "new_event\\";
+    private String eventFolder = "emulator\\new_events\\";
 
     public String getEventFolder() {
         return eventFolder;

@@ -1,57 +1,57 @@
 package com.blackbox.starter.models;
 
 
-import com.blackbox.starter.events.CarEvent;
-import com.blackbox.starter.events.ICarEvent;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.blackbox.starter.events.*;
+import jdk.nashorn.internal.objects.annotations.Setter;
 
 /**
  * Created by toktar.
  */
 
-
 public class EventMessage {
-    private EventType eventType;
-    private String lastHash;
+    private CarStartEvent start;
+    private CarStopEvent stop;
+    private CarRepairEvent repair;
+    private CarAccidentEvent accident;
+    private CarBreakingEvent breaking;
 
-    @JsonProperty(value = "event")
-    private ICarEvent carEvent;
-    private Object eventObject;
-
-    public Object getEventObject() {
-        return eventObject;
+    public CarStartEvent getStart() {
+        return start;
     }
 
-    public void setEventObject(Object eventObject) {
-        this.eventObject = eventObject;
+    public void setStart(CarStartEvent start) {
+        this.start = start;
     }
 
-    public void setCarEvent(ICarEvent carEvent) {
-        this.carEvent = carEvent;
+    public CarStopEvent getStop() {
+        return stop;
     }
 
-    public String getLastHash() {
-        return lastHash;
+    public void setStop(CarStopEvent stop) {
+        this.stop = stop;
     }
 
-    public void setLastHash(String lastHash) {
-        this.lastHash = lastHash;
+    public CarRepairEvent getRepair() {
+        return repair;
     }
 
-    public ICarEvent getCarEvent() {
-        return carEvent;
+    public void setRepair(CarRepairEvent repair) {
+        this.repair = repair;
     }
 
-    public void setCarEvent(CarEvent carEvent) {
-        this.carEvent = carEvent;
+    public CarAccidentEvent getAccident() {
+        return accident;
     }
 
-    public EventType getEventType() {
-        return eventType;
+    public void setAccident(CarAccidentEvent accident) {
+        this.accident = accident;
     }
 
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
+    public CarBreakingEvent getBreaking() {
+        return breaking;
     }
 
+    public void setBreaking(CarBreakingEvent breaking) {
+        this.breaking = breaking;
+    }
 }
