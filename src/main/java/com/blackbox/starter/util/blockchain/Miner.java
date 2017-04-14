@@ -31,8 +31,8 @@ public class Miner extends Thread {
         System.out.println("Miner controller starting");
         // this.blockController = blockController;
         EncryptionUtil.generateKey();
-        blockList = new ArrayList<>();
-        pendingList = new ArrayList<>();
+        blockList = new ArrayList<EventBlock>();
+        pendingList = new ArrayList<CarEvent>();
         target = new byte[32];
         for (int i = 0; i < 32; i++) {
             target[i] = (byte) (i >= 30 ? 0 : 0xFF); //TODO param
@@ -56,7 +56,7 @@ public class Miner extends Thread {
     }
 
     synchronized public void movePendingEvent(){
-        processingList = new ArrayList<>(pendingList);
+        processingList = new ArrayList<CarEvent>(pendingList);
     }
 
 
@@ -111,7 +111,7 @@ public class Miner extends Thread {
         final PublicKey publicKey = (PublicKey) inputStream.readObject();
 
         EventBlock eventBlock = new EventBlock();
-        eventBlock.setEvent(new ArrayList<>(pendingList));
+        eventBlock.setEvent(new ArrayList<CarEvent>(pendingList));
         eventBlock.setParentHash(blockList.isEmpty() ? null : blockList.get(blockList.size() - 1).getEventHash());
         eventBlock.setTimestamp(System.currentTimeMillis());
         eventBlock.setSignature(EncryptionUtil.encrypt(eventBlock.getEvent(), publicKey));
@@ -175,7 +175,7 @@ public class Miner extends Thread {
     }
 
     private void saveBlockListToFile(int startPosition, int endPosition) throws IOException {
-        List<EventBlock> curList = new ArrayList<>();
+        List<EventBlock> curList = new ArrayList<EventBlock>();
         for (int i = startPosition; i <= endPosition && i < blockList.size(); i++) {
             curList.add(blockList.get(i));
         }

@@ -8,8 +8,6 @@ import com.blackbox.starter.util.InterfaceAdapter;
 import com.blackbox.starter.util.blockchain.Miner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileReader;

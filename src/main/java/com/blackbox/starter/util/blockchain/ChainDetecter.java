@@ -55,7 +55,7 @@ public class ChainDetecter {
     }
 
     public List<CarEvent> getEventList(List<EventBlock> blockList) {
-        List<CarEvent> eventList = new ArrayList<>();
+        List<CarEvent> eventList = new ArrayList<CarEvent>();
         for (EventBlock block : blockList) {
             eventList.addAll(block.getEvent());
         }
@@ -64,7 +64,7 @@ public class ChainDetecter {
     }
 
     public List<CarEvent> getEventWithType(List<CarEvent> eventList, Set<Class> classList) {
-        List<CarEvent> result = new ArrayList<>();
+        List<CarEvent> result = new ArrayList<CarEvent>();
         for (CarEvent event : eventList) {
             if (classList.contains(event.getClass())) {
                 result.add(event);

@@ -9,7 +9,7 @@ public class CarRepairEvent extends CarEvent implements Serializable {
 
     private String description;
     private String spareId;
-    private WorkType workType;
+    private String workType;
     private long workshopStationId;
 
     public long getWorkshopStationId() {
@@ -20,11 +20,11 @@ public class CarRepairEvent extends CarEvent implements Serializable {
         this.workshopStationId = workshopStationId;
     }
 
-    public WorkType getWorkType() {
+    public String getWorkType() {
         return workType;
     }
 
-    public void setWorkType(WorkType workType) {
+    public void setWorkType(String workType) {
         this.workType = workType;
     }
 
@@ -44,5 +44,14 @@ public class CarRepairEvent extends CarEvent implements Serializable {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        String eventString = "CarRepairEvent{" + super.toString() +
+                " description='" + description + '\'' +
+                ", spareId='" + spareId + '\''+
+                ", workType='" + workType + '\''+
+                ", workshopStationId='" + workshopStationId + '\'' + '}';
 
+        return eventString;
+    }
 }

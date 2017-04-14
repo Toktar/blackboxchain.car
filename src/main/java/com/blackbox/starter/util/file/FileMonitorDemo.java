@@ -4,8 +4,6 @@ import com.blackbox.starter.Config;
 import com.blackbox.starter.controllers.EventController;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 
